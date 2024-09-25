@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import Link from 'next/link'
+import React from 'react'
 
 const navItems = [
   { icon: Home, label: 'ホーム', href: '/dashboard' },
@@ -22,12 +23,22 @@ const navItems = [
 type Props = {
   email: string
   name: string
+  closeButton?: React.ReactNode
+  className?: string
 }
-export default function SideNavigation({ email, name }: Props) {
+export default function SideNavigation({
+  email,
+  name,
+  closeButton,
+  className
+}: Props) {
   return (
-    <div className="fixed left-0 top-0 z-10 flex flex-col h-screen w-64 border-r bg-background">
-      <div className="flex h-12 items-center border-b px-6">
+    <div
+      className={`fixed left-0 top-0 z-10 flex flex-col h-screen w-64 border-r bg-background ${className}`}
+    >
+      <div className="flex h-12 items-center border-b pl-6 pr-2 justify-between">
         <span className="text-lg font-semibold">AImyMe2</span>
+        {closeButton}
       </div>
 
       <ScrollArea className="flex-1">

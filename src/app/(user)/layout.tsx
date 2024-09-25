@@ -1,4 +1,5 @@
-import SideNavigation from '@/components/side-navigation/SideNavigation'
+import SideNavigation from '@/components/navigation/SideNavigation'
+import { TopAppBar } from '@/components/navigation/TopAppBar'
 import { getCurrentUserOrFail } from '@/lib/auth'
 
 export default async function UserLayout({
@@ -9,8 +10,15 @@ export default async function UserLayout({
   const user = await getCurrentUserOrFail()
   return (
     <>
-      <SideNavigation email={user.email} name={user.name} />
-      <main className="pl-64">{children}</main>
+      <SideNavigation
+        email={user.email}
+        name={user.name}
+        className="hidden md:block"
+      />
+      <div className="md:pl-64">
+        <TopAppBar email={user.email} name={user.name} className="md:hidden" />
+        <main>{children}</main>
+      </div>
     </>
   )
 }
