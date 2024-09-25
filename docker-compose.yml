@@ -1,0 +1,13 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    volumes:
+        - postgres_db:/var/lib/postgresql/data
+    ports:
+        - ${DB_FORWARD_PORT:-5432}:5432
+    environment:
+        POSTGRES_DB: aimyme
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: password
+volumes:
+  postgres_db:
