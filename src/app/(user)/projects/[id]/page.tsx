@@ -1,5 +1,5 @@
 import { ProjectDetail } from '@/types'
-import { archiveProject, getProject } from '../actions'
+import { deleteProject, getProject } from '../actions'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import {
@@ -19,7 +19,7 @@ export default async function ProjectDetailPage({
   params: { id: string }
 }) {
   const project: ProjectDetail = await getProject(params.id)
-  const action = archiveProject.bind(null, params.id)
+  const action = deleteProject.bind(null, params.id)
   return (
     <div className="container mx-auto px-4 py-8">
       <Card className="w-full max-w-3xl mx-auto">

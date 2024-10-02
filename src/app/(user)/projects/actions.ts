@@ -115,7 +115,7 @@ export const upsertProjectAction = async (
   redirect(`/projects/${id}`)
 }
 
-export const archiveProject = async (projectId: string) => {
+export const deleteProject = async (projectId: string) => {
   const { userId } = await getSessionOrFail()
   await prisma.project.update({
     where: {
