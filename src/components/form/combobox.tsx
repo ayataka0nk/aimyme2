@@ -14,7 +14,7 @@ export const RhfCombobox = ({ label, value, onChange, options }: Props) => {
     <FormItem className="flex flex-col">
       <FormLabel>{label}</FormLabel>
       <FormControl>
-        <Combobox defaultValue={value} onChange={onChange} options={options} />
+        <Combobox value={value} onChange={onChange} options={options} />
       </FormControl>
       <FormMessage />
     </FormItem>

@@ -2,11 +2,55 @@
 
 import { prisma } from '@/lib/prisma'
 import { getSessionOrFail } from '@/lib/sessions'
+import { TimeEntrySummary } from '@/types'
 import { parseISO } from 'date-fns'
+import { redirect } from 'next/navigation'
 
-export const getTimeEntries = async () => {
-  const timeEntries = await prisma.timeEntry.findMany()
-  return timeEntries
+export const getTimeEntries = async (): Promise<TimeEntrySummary[]> => {
+  const { userId } = await getSessionOrFail()
+  const timeEntries = await prisma.timeEntry.findMany({
+    where: {
+      userId: userId
+    },
+    include: {
+      project: true
+    },
+    orderBy: {
+      startTime: 'desc'
+    }
+  })
+  return timeEntries.map((timeEntry) => ({
+    id: timeEntry.id,
+    startTime: timeEntry.startTime ?? undefined,
+    endTime: timeEntry.endTime ?? undefined,
+    description: timeEntry.description ?? undefined,
+    projectId: timeEntry.projectId,
+    projectName: timeEntry.project.name
+  }))
+}
+
+export const getTimeEntry = async (
+  timeEntryId: string
+): Promise<TimeEntrySummary> => {
+  const timeEntry = await prisma.timeEntry.findUnique({
+    where: {
+      id: timeEntryId
+    },
+    include: {
+      project: true
+    }
+  })
+  if (!timeEntry) {
+    throw new Error('Time entry not found')
+  }
+  return {
+    id: timeEntry.id,
+    startTime: timeEntry.startTime ?? undefined,
+    endTime: timeEntry.endTime ?? undefined,
+    description: timeEntry.description ?? undefined,
+    projectId: timeEntry.projectId,
+    projectName: timeEntry.project.name
+  }
 }
 
 export const upsertTimeEntry = async (
@@ -22,7 +66,17 @@ export const upsertTimeEntry = async (
   const { userId } = await getSessionOrFail()
   try {
     if (timeEntryId) {
-      throw new Error('Not implemented')
+      await prisma.timeEntry.update({
+        where: {
+          id: timeEntryId
+        },
+        data: {
+          projectId: projectId,
+          startTime: parseISO(startDateTime),
+          endTime: endDateTime ? parseISO(endDateTime) : null,
+          description: description
+        }
+      })
     } else {
       await prisma.timeEntry.create({
         data: {
@@ -39,4 +93,5 @@ export const upsertTimeEntry = async (
       error: 'unknown error occured'
     }
   }
+  redirect('/time-entries')
 }

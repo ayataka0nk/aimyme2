@@ -34,11 +34,14 @@ export function Combobox({
   defaultValue?: string
 }) {
   const [open, setOpen] = React.useState(false)
-  const isControlled = value !== undefined
+  const isControlled = typeof value !== 'undefined'
+  console.log('isControlled', isControlled)
+  console.log('value', value)
 
   const [localValue, setLocalValue] = React.useState(
     isControlled ? value : defaultValue ?? ''
   )
+  console.log('localValue', localValue)
 
   const buttonRef = React.useRef<HTMLButtonElement>(null)
   const [buttonWidth, setButtonWidth] = React.useState<number | undefined>(

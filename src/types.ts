@@ -20,3 +20,12 @@ export type ComboboxOption = {
   value: string
   label: string
 }
+
+export type TimeEntrySummary = {
+  id: string
+  startTime?: Date
+  endTime?: Date
+  description?: string
+  projectId: string
+  projectName: string
+}

@@ -32,9 +32,10 @@ const formSchema = z.object({
 type Props = {
   id?: string
   projectId: string
-  startDateTime: Date
+  startDateTime?: Date
   endDateTime?: Date
   projectOptions: ComboboxOption[]
+  description?: string
 }
 
 export const TimeEntryForm = ({
@@ -42,7 +43,8 @@ export const TimeEntryForm = ({
   projectId,
   startDateTime,
   endDateTime,
-  projectOptions
+  projectOptions,
+  description
 }: Props) => {
   const [state, dispatch] = useFormState(
     upsertTimeEntry.bind(null, id),
@@ -52,9 +54,10 @@ export const TimeEntryForm = ({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      projectId,
+      projectId: projectId,
       startDateTime: startDateTime,
-      endDateTime: endDateTime
+      endDateTime: endDateTime,
+      description: description
     }
   })
 
@@ -69,6 +72,7 @@ export const TimeEntryForm = ({
     if (values.description) {
       formData.append('description', values.description)
     }
+
     dispatch(formData)
   }
 
