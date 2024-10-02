@@ -32,7 +32,8 @@ export default function DeleteButton({
         <AlertDialogHeader>
           <AlertDialogTitle>本当に削除しますか？</AlertDialogTitle>
           <AlertDialogDescription>
-            この操作は取り消せません。"{name}" を削除してもよろしいですか？
+            この操作は取り消せません。&quot;{name}&quot;
+            を削除してもよろしいですか？
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

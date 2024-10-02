@@ -14,7 +14,7 @@ export const loginFormAction = async (
   try {
     const user = await authenticate(email, password)
     setSession({ userId: user.id })
-  } catch (error: unknown) {
+  } catch {
     return {
       error: 'Invalid email or password'
     }
