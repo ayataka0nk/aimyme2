@@ -15,3 +15,8 @@ export type ProjectDetail = {
   name: string
   description: string
 }
+
+export type ComboboxOption = {
+  value: string
+  label: string
+}

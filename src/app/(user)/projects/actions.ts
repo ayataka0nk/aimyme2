@@ -1,10 +1,10 @@
 'use server'
 
 import { prisma } from '@/lib/prisma'
-import { getSessionOrFail } from '@/lib/sessions'
-import { ProjectDetail, ProjectSummary } from '@/types'
-import { notFound, redirect } from 'next/navigation'
 import { Prisma } from '@prisma/client'
+import { getSessionOrFail } from '@/lib/sessions'
+import { notFound, redirect } from 'next/navigation'
+import { ProjectDetail, ProjectSummary } from '@/types'
 
 type GetProjectsQuery = {
   keyword?: string

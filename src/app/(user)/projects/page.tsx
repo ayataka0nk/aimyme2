@@ -17,12 +17,9 @@ export default async function ProjectsPage() {
       <h1 className="text-2xl font-bold mb-6">プロジェクト一覧</h1>
       <div className="space-y-4">
         {projects.map((project) => (
-          <div>
+          <div key={project.id}>
             <Link href={`/projects/${project.id}`} passHref>
-              <Card
-                key={project.id}
-                className="hover:shadow-lg transition-shadow duration-300"
-              >
+              <Card className="hover:shadow-lg transition-shadow duration-300">
                 <CardHeader>
                   <CardTitle>{project.name}</CardTitle>
                 </CardHeader>

@@ -1,4 +1,4 @@
-import { Home, LogOut, FileText } from 'lucide-react'
+import { Home, LogOut, FileText, Timer, Clock } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
@@ -7,7 +7,8 @@ import React from 'react'
 
 const navItems = [
   { icon: Home, label: 'ホーム', href: '/dashboard' },
-  { icon: FileText, label: 'プロジェクト一覧', href: '/projects' }
+  { icon: FileText, label: 'プロジェクト一覧', href: '/projects' },
+  { icon: Clock, label: '稼働時間', href: '/time-entries' }
 ]
 
 type Props = {
