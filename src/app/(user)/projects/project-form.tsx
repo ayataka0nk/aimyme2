@@ -16,7 +16,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
-import { AlertCircle } from 'lucide-react'
+import { AlertCircle, SaveIcon } from 'lucide-react'
 
 type Props = {
   id?: string
@@ -98,7 +98,9 @@ export const ProjectForm = ({ id, name, description }: Props) => {
               </div>
             )}
             <div className="flex justify-end">
-              <Button type="submit">保存する</Button>
+              <Button type="submit">
+                <SaveIcon className="mr-2 w-4 h-4" /> 保存
+              </Button>
             </div>
           </form>
         </Form>

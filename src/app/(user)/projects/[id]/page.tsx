@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/card'
 import { Pencil } from 'lucide-react'
 import DeleteButton from '../delete-button'
+import { Separator } from '@/components/ui/separator'
 
 export default async function ProjectDetailPage({
   params
@@ -38,8 +39,14 @@ export default async function ProjectDetailPage({
         <CardContent>
           <p className="text-gray-700">{project.description}</p>
         </CardContent>
+
         <CardFooter>
-          <DeleteButton name={project.name} action={action} />
+          <div className="w-full">
+            <Separator className="mb-4 mt-10" />
+            <div className="flex justify-end">
+              <DeleteButton name={project.name} action={action} />
+            </div>
+          </div>
         </CardFooter>
       </Card>
     </div>

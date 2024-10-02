@@ -13,6 +13,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger
 } from '@/components/ui/alert-dialog'
+import { Trash2 } from 'lucide-react'
 
 export default function DeleteButton({
   name,
@@ -26,7 +27,9 @@ export default function DeleteButton({
   return (
     <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
       <AlertDialogTrigger asChild>
-        <Button variant="destructive">削除</Button>
+        <Button variant="destructive">
+          <Trash2 className="mr-2 w-4 h-4" /> 削除
+        </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
