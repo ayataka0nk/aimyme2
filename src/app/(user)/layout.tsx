@@ -1,5 +1,5 @@
-import SideNavigation from '@/components/navigation/SideNavigation'
-import { TopAppBar } from '@/components/navigation/TopAppBar'
+import SideNavigation from '@/app/(user)/navigation/SideNavigation'
+import { TopAppBar } from '@/app/(user)/navigation/TopAppBar'
 import { getCurrentUserOrFail } from '@/lib/auth'
 
 export default async function UserLayout({

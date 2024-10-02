@@ -4,7 +4,8 @@ import {
   Users,
   Settings,
   HelpCircle,
-  LogOut
+  LogOut,
+  FileText
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
@@ -14,10 +15,7 @@ import React from 'react'
 
 const navItems = [
   { icon: Home, label: 'ホーム', href: '/dashboard' },
-  { icon: BarChart, label: '分析', href: '/analytics' },
-  { icon: Users, label: 'ユーザー', href: '/users' },
-  { icon: Settings, label: '設定', href: '/settings' },
-  { icon: HelpCircle, label: 'ヘルプ', href: '/help' }
+  { icon: FileText, label: '見積もり', href: '/estimates' }
 ]
 
 type Props = {

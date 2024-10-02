@@ -6,7 +6,7 @@ import {
   SheetDescription,
   SheetTitle,
   SheetTrigger
-} from '../ui/sheet'
+} from '../../../components/ui/sheet'
 import SideNavigation from './SideNavigation'
 
 type Props = ComponentProps<'header'> & {
