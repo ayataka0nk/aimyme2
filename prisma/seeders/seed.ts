@@ -82,8 +82,6 @@ const insertData = async () => {
   await prisma.timeEntry.create({
     data: {
       description: 'タスク1完了',
-      year: year,
-      month: month,
       startTime: new Date(),
       endTime: new Date(),
       project: {

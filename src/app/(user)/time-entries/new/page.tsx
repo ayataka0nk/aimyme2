@@ -6,14 +6,9 @@ export default async function Page() {
   return (
     <div>
       <TimeEntryForm
-        id=""
         projectId=""
-        year=""
-        month=""
-        startDate=""
-        startTime=""
-        endDate=""
-        endTime=""
+        startDateTime={new Date()}
+        endDateTime={undefined}
         projectOptions={projectOptions}
       />
     </div>

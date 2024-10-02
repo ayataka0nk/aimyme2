@@ -67,8 +67,6 @@ model TimeEntry {
   id              String    @id @default(uuid())
   userId          String    @map("user_id")
   projectId       String    @map("project_id")
-  year            Int       @map("year")
-  month           Int       @map("month")
   startTime       DateTime? @map("start_time")
   endTime         DateTime? @map("end_time")
   description     String?   @map("description")

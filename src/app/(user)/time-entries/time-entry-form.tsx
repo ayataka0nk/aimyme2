@@ -5,43 +5,43 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Form, FormField } from '@/components/ui/form'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel
+} from '@/components/ui/form'
 import { Button } from '@/components/ui/button'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { AlertCircle, SaveIcon } from 'lucide-react'
 import { upsertTimeEntry } from './actions'
 import { ComboboxOption } from '@/types'
-import { useRef } from 'react'
 import { RhfDateTimePicker } from '@/components/form/date-time-picker'
 import { RhfCombobox } from '@/components/form/combobox'
-
-type Props = {
-  id?: string
-  projectId: string
-  year: string
-  month: string
-  startDate: string
-  startTime: string
-  endDate: string
-  endTime: string
-  projectOptions: ComboboxOption[]
-}
+import { toUtcIsoString } from '@/lib/utils'
+import { Textarea } from '@/components/ui/textarea'
 
 const formSchema = z.object({
   projectId: z.string().min(1, 'プロジェクトを選択してください'),
   startDateTime: z.date(),
-  endDateTime: z.date().optional()
+  endDateTime: z.date().optional(),
+  description: z.string().optional()
 })
+
+type Props = {
+  id?: string
+  projectId: string
+  startDateTime: Date
+  endDateTime?: Date
+  projectOptions: ComboboxOption[]
+}
 
 export const TimeEntryForm = ({
   id,
   projectId,
-  year,
-  month,
-  startDate,
-  startTime,
-  endDate,
-  endTime,
+  startDateTime,
+  endDateTime,
   projectOptions
 }: Props) => {
   const [state, dispatch] = useFormState(
@@ -53,18 +53,23 @@ export const TimeEntryForm = ({
     resolver: zodResolver(formSchema),
     defaultValues: {
       projectId,
-      startDateTime: new Date(),
-      endDateTime: undefined
+      startDateTime: startDateTime,
+      endDateTime: endDateTime
     }
   })
 
-  const formRef = useRef<HTMLFormElement>(null)
-
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values)
-    if (formRef.current) {
-      dispatch(new FormData(formRef.current))
+    const formData = new FormData()
+    formData.append('projectId', values.projectId)
+    formData.append('startDateTime', toUtcIsoString(values.startDateTime))
+    const endDateTime = toUtcIsoString(values.endDateTime)
+    if (endDateTime) {
+      formData.append('endDateTime', endDateTime)
     }
+    if (values.description) {
+      formData.append('description', values.description)
+    }
+    dispatch(formData)
   }
 
   return (
@@ -74,11 +79,7 @@ export const TimeEntryForm = ({
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form
-            className="space-y-4"
-            ref={formRef}
-            onSubmit={form.handleSubmit(onSubmit)}
-          >
+          <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
               name="projectId"
@@ -91,7 +92,6 @@ export const TimeEntryForm = ({
                 />
               )}
             />
-
             <FormField
               control={form.control}
               name="startDateTime"
@@ -103,7 +103,6 @@ export const TimeEntryForm = ({
                 />
               )}
             />
-
             <FormField
               control={form.control}
               name="endDateTime"
@@ -115,7 +114,22 @@ export const TimeEntryForm = ({
                 />
               )}
             />
-
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>説明</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      {...field}
+                      placeholder="稼働内容を記入してください"
+                      rows={3}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
             {state?.error && (
               <div className="mt-4">
                 <Alert variant="destructive">
