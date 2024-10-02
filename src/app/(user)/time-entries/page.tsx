@@ -9,7 +9,8 @@ import { getProjectOptions } from '@/app/options'
 export default async function TimeEntriesPage() {
   const timeEntries = await getTimeEntries()
   const projectOptions = await getProjectOptions()
-
+  // TODO 一覧のデザイン見直し、固定スクロール、フィルタ、ページネーションなど
+  // 詳細画面は作らずに編集画面にいきなり飛ばすの結構良いっすね
   return (
     <div className="container mx-auto py-10">
       <div className="flex justify-between items-center mb-6">
